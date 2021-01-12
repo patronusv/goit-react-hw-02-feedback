@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FeedbackOptions from './feedbackOptions/FeedbackOptions';
+import Statistics from './statistics/Statistics';
 
 export default class App extends Component {
   state = {
@@ -21,21 +23,8 @@ export default class App extends Component {
   render() {
     return (
       <>
-        <h2>Please leave feedback</h2>
-        {Object.keys(this.state).map(item => (
-          <button onClick={this.increment} type="button" key={item} name={item}>
-            {item[0].toUpperCase() + item.slice(1)}
-          </button>
-        ))}
-
-        <h2>Statistics</h2>
-        {Object.keys(this.state).map(item => (
-          <p key={item}>
-            {item[0].toUpperCase() + item.slice(1)}: <span>{this.state[item]}</span>
-          </p>
-        ))}
-        <p>Total: {this.countTotalFeedback()}</p>
-        <p>Positive feedback: {this.countPositiveFeedbackPercentage()}%</p>
+        <FeedbackOptions options={this.state} onLeaveFeedback={this.increment} />
+        <Statistics props={this.state} total={this.countTotalFeedback} positiveFeedback={this.countPositiveFeedbackPercentage} />
       </>
     );
   }
